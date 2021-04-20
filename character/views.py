@@ -8,11 +8,11 @@ from .serializers import CharacterSerializer
 from user.serializers import UserSerializer
 from user.services import validate_token_user
 
-class NocRegionListView(generics.ListCreateAPIView):
+class CharacterListView(generics.ListCreateAPIView):
     queryset = Character.objects.all()
     serializer_class = CharacterSerializer
 
 
-class NocRegionDetailView(generics.RetrieveUpdateDestroyAPIView):
+class CharacterDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Character.objects.all()
     serializer_class = CharacterSerializer

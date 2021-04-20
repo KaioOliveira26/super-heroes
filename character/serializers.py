@@ -5,5 +5,5 @@ from .models import Character
 class CharacterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Character
-        fields = [' name', 'photo', 'description', 'universe',
+        fields = ['name', 'photo', 'description', 'universe',
                   'height',  'weight', 'strength', 'speed']

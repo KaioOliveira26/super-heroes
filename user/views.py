@@ -35,6 +35,7 @@ class UserView(APIView):
 
         if "password" in request.data:
             request.data['password'] = make_password(request.data['password'])
+            
         user_object = valid['user']
         serializer = UserSerializer(
             user_object, data=request.data, partial=True)
