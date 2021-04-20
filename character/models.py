@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Character(models.Model):
@@ -11,3 +12,9 @@ class Character(models.Model):
     weight = models.DecimalField(max_digits=3, decimal_places=0) 
     strength = models.IntegerField()
     speed = models.IntegerField()
+
+
+class FavoriteCharacter(models.Model):
+    id = models.AutoField(primary_key=True)
+    character = models.ForeignKey(Character,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
