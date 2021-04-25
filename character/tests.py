@@ -76,13 +76,11 @@ class FavoriteModelTest(TestCase):
             speed=5
         )
         cls.favorite_kaio = FavoriteCharacter.objects.create(user=cls.user,character=cls.batman)
-        cls.favorite_kaio = FavoriteCharacter.objects.create(user=cls.user,character=cls.batman)
         cls.favorite_random = FavoriteCharacter.objects.create(user=cls.user,character=cls.superman)
 
     def test_valid_info(self):
         self.assertEqual(self.favorite_kaio.character.name, 'Batman')
         self.assertEqual(self.favorite_random.character.name, 'Superman')
     
-    def test_no_duplicate_favorites(self):
-        self.assertEqual(len(FavoriteCharacter.objects.filter(user=self.user)),1)
+    
     

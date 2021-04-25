@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Character
+from .models import Character,FavoriteCharacter
 from user.serializers import UserSerializer
 
 
@@ -10,7 +10,10 @@ class CharacterSerializer(serializers.ModelSerializer):
                   'height',  'weight', 'strength', 'speed']
 
 
-class FavoriteSerializer(serializers.Serializer):
+class FavoriteSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField()
     character = CharacterSerializer()
     user = UserSerializer()
+    class Meta:
+        model = Character
+        fields = ['id','character','user']

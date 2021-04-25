@@ -64,7 +64,7 @@ class FavoriteCharacterView(generics.ListCreateAPIView):
         
         for favorite in favorites:
             if character_object == favorite.character:
-                return Response('Personagem já favoritado',401) 
+                return Response('Personagem já favoritado',400) 
         
         data = request.data
         favorite = FavoriteSerializer(FavoriteCharacter.objects.create(character=character_object,user=user_object)).data
@@ -73,6 +73,20 @@ class FavoriteCharacterView(generics.ListCreateAPIView):
 class FavoriteDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = FavoriteCharacter.objects.all()
     serializer_class = FavoriteSerializer
+
+    def delete(self, request,pk):
+        valid = validate_token_user(request.headers)
+
+        if valid['response'] != True:
+            return Response({'response': valid['response']}, valid['status'])
+
+        user_object = valid['user']
+
+        favorite = FavoriteCharacter.objects.get(id=pk)
+        if favorite.user != user_object:
+            return Response('não é possivel deletar favoritos de outros usuários',403)
+        favorite.delete()
+        return Response(status=204) 
 
 class HeroesFight(APIView):
     def post(self, request):
